@@ -1,42 +1,44 @@
-<button (click)="createCustomer()">Create Customer</button>
-<nz-table #nzTable [nzData]="customersToDisplay">
-  <thead (nzSortChange)="sort($event)" nzSingleSort>
-    <tr>
-      <th nzCustomFilter nzShowSort nzSortKey="name">
-        Name
-        <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" [nzClickHide]="false" nzTableFilter #dropdown>
-          <i
-            nz-icon
-            nzType="search"
-            class="ant-table-filter-icon"
-            [class.ant-table-filter-open]="dropdown.nzVisible"
-            nz-dropdown
-          ></i>
-          <div class="search-box">
-            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
-            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-              Search
-            </button>
-            <button nz-button nzSize="small" (click)="reset()">Reset</button>
-          </div>
-        </nz-dropdown>
-      </th>
-      <th nzShowSort nzSortKey="email">Email</th>
-      <th nzShowSort nzSortKey="phone">Phone</th>
-      <th>Address</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of nzTable.data">
-      <td>{{ data.name }}</td>
-      <td>{{ data.email }}</td>
-      <td>{{ data.phone }}</td>
-      <td>{{ data.address }}</td>
-      <td>
-        <button (click)="editCustomer(data._id)">Edit</button>
-        <button (click)="deleteCustomer(data._id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+<div style="width: 90%; margin: auto;">
+  <button (click)="createCustomer()" nz-button nzType="default" style="margin-bottom: 20px;">Create Customer</button>
+  <nz-table #nzTable [nzData]="customersToDisplay">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzCustomFilter nzShowSort nzSortKey="name">
+          Name
+          <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" [nzClickHide]="false" nzTableFilter #dropdown>
+            <i
+              nz-icon
+              nzType="search"
+              class="ant-table-filter-icon"
+              [class.ant-table-filter-open]="dropdown.nzVisible"
+              nz-dropdown
+            ></i>
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                Search
+              </button>
+              <button nz-button nzSize="small" (click)="reset()">Reset</button>
+            </div>
+          </nz-dropdown>
+        </th>
+        <th nzShowSort nzSortKey="email">Email</th>
+        <th nzShowSort nzSortKey="phone">Phone</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.name }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.phone }}</td>
+        <td>{{ data.address }}</td>
+        <td>
+          <button (click)="editCustomer(data._id)" nz-button nzType="default">Edit</button>
+          <button (click)="deleteCustomer(data._id)" nz-button nzType="default" style="margin-left: 10px;">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

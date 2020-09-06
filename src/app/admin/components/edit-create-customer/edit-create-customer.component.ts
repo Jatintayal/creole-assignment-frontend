@@ -1,3 +1,4 @@
+// Imports
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,10 +11,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./edit-create-customer.component.css']
 })
 export class EditCreateCustomerComponent implements OnInit {
-
+  // Declare Variables
   subscriptions: Subscription[] = [];
   task: string = 'create';
-  customerForm: FormGroup;
+  customerForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', [Validators.required]],
+    phone: ['', [Validators.required]],
+    address: ['', [Validators.required]]
+  });
   customerId: string;
 
   constructor(
@@ -23,46 +30,38 @@ export class EditCreateCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Switch between create, edit forms
     switch (this.router.url.split('/')[3]) {
       case 'create':
+        // To create new customer
         this.task = 'create';
-        this.createForm({
-          name: '',
-          email: '',
-          password: '',
-          phone: '',
-          address: ''
-        });
         break;
       case 'edit':
+        // To edit existing customer
         this.subscriptions.push(this.adminServ.getCustomer(this.router.url.split('/')[4]).subscribe(
           res => {
             this.task = 'edit';
             this.customerId = res['_id'];
-            this.createForm(res);
+            // Add customer's values to customer form
+            this.customerForm.patchValue({
+              name: res['name'],
+              email: res['email'],
+              password: res['password'],
+              phone: res['phone'],
+              address: res['address']
+            });
           }, err => {
             console.log(err);
           }
         ));
         break;
     }
-    console.log()
-    
   }
-
-  createForm(customerData) {
-    this.customerForm = this.fb.group({
-      name: [customerData.name, [Validators.required]],
-      email: [customerData.email, [Validators.email, Validators.required]],
-      password: [customerData.password, [Validators.required]],
-      phone: [customerData.phone, [Validators.required]],
-      address: [customerData.address, [Validators.required]]
-    });
-  }
-
+  // Submit filled form details
   submitForm(): void {
     switch (this.task) {
       case 'create':
+        // Create new customer
         this.subscriptions.push(this.adminServ.createCustomer(this.customerForm.value).subscribe(
           res => {
             this.router.navigate(['admin/customers']);
@@ -70,6 +69,7 @@ export class EditCreateCustomerComponent implements OnInit {
         ));
         break;
       case 'edit':
+        // Edit existing customer
         this.subscriptions.push(this.adminServ.updateCustomer({_id: this.customerId, ...this.customerForm.value}).subscribe(
           res => {
             this.router.navigate(['admin/customers']);
@@ -80,6 +80,7 @@ export class EditCreateCustomerComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    // Unsubscribe to all the subscriptions
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
