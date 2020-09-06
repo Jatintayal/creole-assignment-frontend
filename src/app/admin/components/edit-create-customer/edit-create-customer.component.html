@@ -1,0 +1,53 @@
+<h2>{{task == 'create' ? 'Create Customer' : 'Edit Customer'}}</h2>
+<form nz-form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>name</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="name" formControlName="name" placeholder="name" />
+      <nz-form-explain *ngIf="customerForm.get('name')?.dirty && customerForm.get('name')?.errors"
+        >Please input name!</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="email" id="email" />
+      <nz-form-explain *ngIf="customerForm.get('email')?.dirty && customerForm.get('email')?.errors">
+        The input is not valid E-mail!
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>password</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="password" formControlName="password" placeholder="password" />
+      <nz-form-explain *ngIf="customerForm.get('password')?.dirty && customerForm.get('password')?.errors"
+        >Please input password!</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone" nzRequired>phone</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="phone" formControlName="phone" placeholder="phone" />
+      <nz-form-explain *ngIf="customerForm.get('phone')?.dirty && customerForm.get('phone')?.errors"
+        >Please input phone!</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>address</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="address" formControlName="address" placeholder="address" />
+      <nz-form-explain *ngIf="customerForm.get('address')?.dirty && customerForm.get('address')?.errors"
+        >Please input address!</nz-form-explain
+      >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

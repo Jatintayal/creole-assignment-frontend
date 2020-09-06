@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+.header {
+    background-color: #364f6b;
+    height: 100px;
+    width: 100%;
+    position: relative;
+}
+.header h1 {
+    margin: 0 !important;
+    color: white;
+    text-decoration: none;
+    font-size: 1.6em;
+    line-height: 100px;
+    padding-left: 50px;
+    vertical-align: middle;
+}
